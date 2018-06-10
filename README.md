@@ -10,6 +10,20 @@ git clone https://github.com/ivannizhenko/route-finder.git
 
 ## Run dependencies
 * Java 8
+* Text file with configured city connections
+
+## Input file
+Simple text file contains city name pairs, which represent connection between cities.
+City pairs are separated with new line. Cities are separated by comma.
+Here is content of example input file:
+```sh
+Washington,Baltimore
+Baltimore,Philadelphia
+Philadelphia,Pittsburgh
+Philadelphia,Newark
+Newark,New York
+New York,Boston
+```
 
 ## Run
 Download or checkout project from GitHub.
@@ -21,6 +35,18 @@ where
 * -c1 argument is a first city
 * -c2 argument is a second city
 * -f argument is a path to a file which contains city connection pairs
+
+## Output
+Here is example output if cities are connected:
+```sh
+ROUTE: [New York, Newark, Philadelphia, Baltimore, Washington]
+Is New York connected to Washington? - true
+```
+And here is example output if cities are not connected, or input file is empty:
+```sh
+ROUTE: []
+Is New York connected to Tokyo? - false
+```
 
 ## Build dependencies
 * Maven 3
