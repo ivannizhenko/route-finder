@@ -115,6 +115,10 @@ class GraphRouteManager implements RouteManager {
         return EMPTY_LIST;
     }
 
+    private ImmutableGraph<String> getImmutableCityGraph() {
+        return ImmutableGraph.copyOf(cityGraph);
+    }
+
     private List<String> getRouteAsList(String source, String destination, Map<String, String> parent) {
 
         LinkedList<String> route = new LinkedList<>();
@@ -132,9 +136,5 @@ class GraphRouteManager implements RouteManager {
 
     boolean isEmpty() {
         return cityGraph.nodes().isEmpty();
-    }
-
-    private ImmutableGraph<String> getImmutableCityGraph() {
-        return ImmutableGraph.copyOf(cityGraph);
     }
 }
