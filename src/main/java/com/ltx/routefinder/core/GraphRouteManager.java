@@ -41,10 +41,12 @@ class GraphRouteManager implements RouteManager {
         return new GraphRouteManager();
     }
 
+    @Override
     public void addConnection(String city1, String city2) {
         cityGraph.putEdge(city1, city2);
     }
 
+    @Override
     public boolean connected(String city1, String city2) {
         Objects.requireNonNull(city1);
         Objects.requireNonNull(city2);
@@ -56,6 +58,7 @@ class GraphRouteManager implements RouteManager {
         return !route.isEmpty();
     }
 
+    @Override
     public List<String> getRoute(String city1, String city2) {
         Objects.requireNonNull(city1);
         Objects.requireNonNull(city2);
