@@ -15,7 +15,7 @@ git clone https://github.com/ivannizhenko/route-finder.git
 Download or checkout project from GitHub.
 In order to start application, run below example command:
 ```sh
-java -jar "./app/route-finder-1.0.0-SNAPSHOT.jar" -c1 "New York" -c2 "Washington" -f ./cities.txt
+java -jar "app/route-finder-1.0.0-SNAPSHOT.jar" -c1 "New York" -c2 "Washington" -f "cities.txt"
 ```
 where
 * -c1 argument is a first city
