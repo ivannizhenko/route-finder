@@ -4,6 +4,7 @@ import com.ltx.routefinder.acl.FileHelper;
 import com.ltx.routefinder.core.RouteManager;
 import com.ltx.routefinder.core.RouteManagerFactory;
 import java.util.List;
+import java.util.Objects;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -11,6 +12,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * CLI route-finder application.
@@ -61,7 +63,18 @@ public class App {
         String destination = cmd.getOptionValue("city2");
         String filePath = cmd.getOptionValue("file");
 
+        verify(source, destination, filePath);
+
         run(source, destination, filePath);
+    }
+
+    private static void verify(String source, String destination, String filePath) {
+        if (StringUtils.isBlank(source))
+            throw new IllegalArgumentException("'city1' argument value is blank");
+        if (StringUtils.isBlank(destination))
+            throw new IllegalArgumentException("'city2' argument value is blank");
+        if (StringUtils.isBlank(filePath))
+            throw new IllegalArgumentException("'file' argument value is blank");
     }
 
     private static void run(String source, String destination, String filePath) {

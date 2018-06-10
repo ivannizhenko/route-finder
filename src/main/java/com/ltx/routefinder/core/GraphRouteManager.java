@@ -1,5 +1,6 @@
 package com.ltx.routefinder.core;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.google.common.graph.Graph;
@@ -15,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Implementation of {@link RouteManager}. Based on Guava's Graph implementation.
@@ -48,8 +52,8 @@ class GraphRouteManager implements RouteManager {
 
     @Override
     public boolean connected(String city1, String city2) {
-        Objects.requireNonNull(city1);
-        Objects.requireNonNull(city2);
+        if (isBlank(city1) || isBlank(city2))
+            return false;
 
         List<String> route = routeTable.get(city1, city2);
         if (route == null)
@@ -60,8 +64,8 @@ class GraphRouteManager implements RouteManager {
 
     @Override
     public List<String> getRoute(String city1, String city2) {
-        Objects.requireNonNull(city1);
-        Objects.requireNonNull(city2);
+        if (isBlank(city1) || isBlank(city2))
+            return EMPTY_LIST;
 
         List<String> route;
 
@@ -84,9 +88,6 @@ class GraphRouteManager implements RouteManager {
         // input verification
         Set<String> nodes = graph.nodes();
         if (nodes.size() == 0 || !nodes.contains(city1) || !nodes.contains(city2))
-            return EMPTY_LIST;
-
-        if (city1.isEmpty() || city2.isEmpty())
             return EMPTY_LIST;
 
         if (city1.equals(city2))
