@@ -50,7 +50,7 @@ public class GraphRouteManagerTest {
     }
 
     @Test
-    public void testRouteManagerReturnsEmptyPathIfSourceIsMissing() {
+    public void testRouteManagerReturnsEmptyRouteIfSourceIsMissing() {
         assumeFalse(routeManager.isEmpty());
         assertTrue(routeManager.getRoute("Los Angeles", "New York").isEmpty());
     }
@@ -62,7 +62,7 @@ public class GraphRouteManagerTest {
     }
 
     @Test
-    public void testRouteManagerReturnsEmptyPathIfDestinationIsMissing() {
+    public void testRouteManagerReturnsEmptyRouteIfDestinationIsMissing() {
         assumeFalse(routeManager.isEmpty());
         assertTrue(routeManager.getRoute("New York", "Los Angeles").isEmpty());
     }
@@ -74,7 +74,7 @@ public class GraphRouteManagerTest {
     }
 
     @Test
-    public void testRouteManagerReturnsEmptyPathIfSourceAndDestinationAreNotConnected() {
+    public void testRouteManagerReturnsEmptyRouteIfSourceAndDestinationAreNotConnected() {
         List<String> route = routeManager.getRoute("New York", "Atlanta");
 
         assertTrue(route.isEmpty());
@@ -86,7 +86,31 @@ public class GraphRouteManagerTest {
     }
 
     @Test
-    public void testRouteManagerReturnsShortestPathIfSeveralPathsArePresent() {
+    public void testRouteManagerReturnsEmptyRouteIfSourceIsEmptyString() {
+        List<String> route = routeManager.getRoute("", "Atlanta");
+
+        assertTrue(route.isEmpty());
+    }
+
+    @Test
+    public void testRouteManagerReturnsConnectedFalseIfSourceIsEmptyString() {
+        assertFalse(routeManager.connected("", "Atlanta"));
+    }
+
+    @Test
+    public void testRouteManagerReturnsEmptyRouteIfDestinationIsEmptyString() {
+        List<String> route = routeManager.getRoute("Atlanta", "");
+
+        assertTrue(route.isEmpty());
+    }
+
+    @Test
+    public void testRouteManagerReturnsConnectedFalseIfDestinationIsEmptyString() {
+        assertFalse(routeManager.connected("Atlanta", ""));
+    }
+
+    @Test
+    public void testRouteManagerReturnsShortestRouteIfSeveralRoutesArePresent() {
         List<String> route = routeManager.getRoute("New York", "Washington");
 
         assertFalse(route.isEmpty());
@@ -95,12 +119,12 @@ public class GraphRouteManagerTest {
     }
 
     @Test
-    public void testRouteManagerReturnsConnectedTrueIfPathIsPresent() {
+    public void testRouteManagerReturnsConnectedTrueIfRouteIsPresent() {
         assertTrue(routeManager.connected("New York", "Washington"));
     }
 
     @Test
-    public void testRouteManagerReturnsRevertedPathIfCitiesAreReversed() {
+    public void testRouteManagerReturnsRevertedRouteIfCitiesAreReversed() {
         List<String> route = routeManager.getRoute("Washington", "New York");
 
         assertFalse(route.isEmpty());
@@ -109,12 +133,12 @@ public class GraphRouteManagerTest {
     }
 
     @Test
-    public void testRouteManagerReturnsConnectedTrueIfPathIsReversed() {
+    public void testRouteManagerReturnsConnectedTrueIfRouteIsReversed() {
         assertTrue(routeManager.connected("Washington", "New York"));
     }
 
     @Test
-    public void testRouteManagerReturnsOneElementPathIfSourceAndDestinationAreTheSame() {
+    public void testRouteManagerReturnsOneElementRouteIfSourceAndDestinationAreTheSame() {
         List<String> route = routeManager.getRoute("New York", "New York");
 
         assertFalse(route.isEmpty());
@@ -125,27 +149,5 @@ public class GraphRouteManagerTest {
     @Test
     public void testRouteManagerReturnsConnectedTrueIfSourceAndDestinationAreTheSame() {
         assertTrue(routeManager.connected("New York", "New York"));
-    }
-
-    @Test
-    public void testRouteManagerAllowsEmptyStringForSource() {
-        List<String> route = routeManager.getRoute("", "Atlanta");
-
-        assertFalse(route.isEmpty());
-        assertEquals(2, route.size());
-        assertEquals("", route.get(0));
-        assertEquals("Atlanta", route.get(1));
-        assertTrue(routeManager.connected("", "Atlanta"));
-    }
-
-    @Test
-    public void testRouteManagerAllowsEmptyStringForDestination() {
-        List<String> route = routeManager.getRoute("Atlanta", "");
-
-        assertFalse(route.isEmpty());
-        assertEquals(2, route.size());
-        assertEquals("Atlanta", route.get(0));
-        assertEquals("", route.get(1));
-        assertTrue(routeManager.connected("Atlanta", ""));
     }
 }

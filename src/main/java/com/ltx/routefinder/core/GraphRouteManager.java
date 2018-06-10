@@ -86,6 +86,9 @@ class GraphRouteManager implements RouteManager {
         if (nodes.size() == 0 || !nodes.contains(city1) || !nodes.contains(city2))
             return EMPTY_LIST;
 
+        if (city1.isEmpty() || city2.isEmpty())
+            return EMPTY_LIST;
+
         if (city1.equals(city2))
             return Collections.singletonList(city1);
 
