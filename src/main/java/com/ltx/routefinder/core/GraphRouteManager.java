@@ -1,6 +1,5 @@
 package com.ltx.routefinder.core;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.google.common.graph.Graph;
@@ -14,9 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import org.apache.commons.lang3.StringUtils;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -45,11 +42,30 @@ class GraphRouteManager implements RouteManager {
         return new GraphRouteManager();
     }
 
+    /**
+     * Adds a connection from source city to destination one.
+     * Does nothing if any (or both) city name is blank.
+     * Correctness of input values are responsibility of the client.
+     *
+     * @param city1 a name of source city
+     * @param city2 a name of destination city
+     */
     @Override
     public void addConnection(String city1, String city2) {
+        if (isBlank(city1) || isBlank(city2))
+            return;
+
         cityGraph.putEdge(city1, city2);
     }
 
+    /**
+     * Checks if two cities are connected.
+     * Returns false, if any (or both) city name is blank.
+     *
+     * @param city1 a name of source city
+     * @param city2 a name of destination city
+     * @return true is connected, false otherwise, or any (or both) city name is incorrect
+     */
     @Override
     public boolean connected(String city1, String city2) {
         if (isBlank(city1) || isBlank(city2))
@@ -62,6 +78,16 @@ class GraphRouteManager implements RouteManager {
         return !route.isEmpty();
     }
 
+    /**
+     * Returns a route from source city to destination one. Reversed input returns reversed route.
+     * Returns a list of single city for the same city as source and destination.
+     * Returns an empty list in case there is no route, or any (or both) city name is blank.
+     *
+     * @param city1 a name of source city
+     * @param city2 a name of destination city
+     * @return a route as a list of cities, starting from source (includes) to destination (included),
+     * or empty list if cities are not connected, or any (or both) city name is incorrect
+     */
     @Override
     public List<String> getRoute(String city1, String city2) {
         if (isBlank(city1) || isBlank(city2))

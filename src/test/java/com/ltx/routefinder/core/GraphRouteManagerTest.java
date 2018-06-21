@@ -40,6 +40,66 @@ public class GraphRouteManagerTest {
     }
 
     @Test
+    public void emptyRouteManagerIfAddedSourceIsNull() {
+        routeManager = new GraphRouteManager();
+
+        assumeTrue(routeManager.isEmpty());
+        routeManager.addConnection(null, "San Francisco");
+
+        assertTrue(routeManager.isEmpty());
+    }
+
+    @Test
+    public void emptyRouteManagerIfAddedSourceIsEmpty() {
+        routeManager = new GraphRouteManager();
+
+        assumeTrue(routeManager.isEmpty());
+        routeManager.addConnection("", "San Francisco");
+
+        assertTrue(routeManager.isEmpty());
+    }
+
+    @Test
+    public void emptyRouteManagerIfAddedSourceIsBlank() {
+        routeManager = new GraphRouteManager();
+
+        assumeTrue(routeManager.isEmpty());
+        routeManager.addConnection(" ", "San Francisco");
+
+        assertTrue(routeManager.isEmpty());
+    }
+
+    @Test
+    public void emptyRouteManagerIfAddedDestinationIsNull() {
+        routeManager = new GraphRouteManager();
+
+        assumeTrue(routeManager.isEmpty());
+        routeManager.addConnection("Los Angeles", null);
+
+        assertTrue(routeManager.isEmpty());
+    }
+
+    @Test
+    public void emptyRouteManagerIfAddedDestinationIsEmpty() {
+        routeManager = new GraphRouteManager();
+
+        assumeTrue(routeManager.isEmpty());
+        routeManager.addConnection("Los Angeles", "");
+
+        assertTrue(routeManager.isEmpty());
+    }
+
+    @Test
+    public void emptyRouteManagerIfAddedDestinationIsBlank() {
+        routeManager = new GraphRouteManager();
+
+        assumeTrue(routeManager.isEmpty());
+        routeManager.addConnection("Los Angeles", " ");
+
+        assertTrue(routeManager.isEmpty());
+    }
+
+    @Test
     public void nonEmptyRouteManagerIfSomeEdgesAdded() {
         routeManager = new GraphRouteManager();
 

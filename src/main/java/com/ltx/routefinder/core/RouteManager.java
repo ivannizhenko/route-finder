@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface RouteManager {
     /**
-     * Checks if two city are connected.
+     * Checks if two cities are connected.
      *
      * @param city1 a name of source city
      * @param city2 a name of destination city
@@ -18,7 +18,7 @@ public interface RouteManager {
     /**
      * Returns a route from source city to destination one. Reversed input returns reversed route.
      * Returns a list of single city for the same city as source and destination.
-     * Returns an empty list in case there is no route, or any (or both) city name is blank.
+     * Returns an empty list in case there is no route.
      *
      * @param city1 a name of source city
      * @param city2 a name of destination city
@@ -27,7 +27,7 @@ public interface RouteManager {
     List<String> getRoute(String city1, String city2);
 
     /**
-     * Connects source city with destination one.
+     * Adds a connection from source city to destination one.
      *
      * @param city1 a name of source city
      * @param city2 a name of destination city
